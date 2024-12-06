@@ -19,37 +19,44 @@ public class CommentController {
 
     // 댓글 작성
     @PostMapping("/{postId}/comments")
-    public ResponseEntity<Comment> createComment(@PathVariable Long postId, @RequestBody Comment comment) {
+    public ResponseEntity<?> createComment(@PathVariable Long postId, @RequestBody Comment comment) {
         try {
             Comment createdComment = commentService.createComment(postId, comment);
             return ResponseEntity.ok(createdComment);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok("해당 게시글을 찾을 수 없습니다.");
         }
     }
 
     // 댓글 목록 조회
     @GetMapping("/{postId}/comments")
-    public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable Long postId) {
+    public ResponseEntity<?> getCommentsByPostId(@PathVariable Long postId) {
         List<Comment> comments = commentService.getCommentsByPostId(postId);
+        if (comments.isEmpty()) {
+            return ResponseEntity.ok("작성된 댓글이 없습니다.");
+        }
         return ResponseEntity.ok(comments);
     }
 
     // 댓글 수정
     @PutMapping("/comments/{commentId}")
-    public ResponseEntity<Comment> updateComment(@PathVariable Long commentId, @RequestBody String newContent) {
+    public ResponseEntity<?> updateComment(@PathVariable Long commentId, @RequestBody String newContent) {
         try {
             Comment updatedComment = commentService.updateComment(commentId, newContent);
             return ResponseEntity.ok(updatedComment);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok("해당 댓글을 찾을 수 없습니다.");
         }
     }
 
     // 댓글 삭제
     @DeleteMapping("/comments/{commentId}")
-    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteComment(@PathVariable Long commentId) {
+        try {
+            commentService.deleteComment(commentId);
+            return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.ok("해당 댓글을 찾을 수 없습니다.");
+        }
     }
 }
