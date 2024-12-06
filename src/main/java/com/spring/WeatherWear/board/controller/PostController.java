@@ -3,6 +3,7 @@ package com.spring.WeatherWear.board.controller;
 import com.spring.WeatherWear.board.domain.entity.Post;
 import com.spring.WeatherWear.board.service.PostService;
 import org.springframework.http.ResponseEntity;
+import com.spring.WeatherWear.board.domain.dto.CustomResponse;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Page;
@@ -31,11 +32,12 @@ public class PostController {
 
     // 게시글 상세 조회
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPostById(@PathVariable Long id) {
+    public ResponseEntity<CustomResponse<Post>> getPostById(@PathVariable Long id) {
         return postService.getPostById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.ok("해당 게시글을 찾을 수 없습니다."));
+                .map(post -> ResponseEntity.ok(new CustomResponse<>("게시글 조회 성공", post)))
+                .orElse(ResponseEntity.ok(new CustomResponse<>("등록된 게시글이 없습니다.", null)));
     }
+
 
     // 게시글 작성
     @PostMapping
