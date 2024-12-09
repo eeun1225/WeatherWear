@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
 <body>
-$END$
+<div th:fragment="myPageHeader" class="row">
+    <div class="offset-3 col-6">
+        <div class="card">
+            <div class="card-body">
+                <div style="float: left">
+                    <h4>Id: [[${user.loginId}]]</h4>
+                    <h4>닉네임: [[${user.nickname}]]</h4>
+                </div>
+                <div style="float: right">
+                    <button class="btn edit-btn" onclick="location.href='/users/edit'">정보 수정</button>
+                    <br/><br/>
+                    <button class="btn del-btn" onclick="location.href='/users/delete'">회원 탈퇴</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
