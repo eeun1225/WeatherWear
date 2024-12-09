@@ -3,6 +3,7 @@ package com.spring.WeatherWear.member.service;
 import com.spring.WeatherWear.member.dto.OAuthAttributes;
 import com.spring.WeatherWear.member.entity.Member;
 import com.spring.WeatherWear.member.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -14,13 +15,10 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class OAuth2MemberService extends DefaultOAuth2UserService {
     private final MemberRepository memberRepository;
-
-    public OAuth2MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

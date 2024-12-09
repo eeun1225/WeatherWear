@@ -1,59 +1,69 @@
 package com.spring.WeatherWear.member.controller;
 
+import com.spring.WeatherWear.member.dto.LoginRequest;
 import com.spring.WeatherWear.member.dto.SignUpRequest;
 import com.spring.WeatherWear.member.entity.Member;
-import com.spring.WeatherWear.member.service.MemberServiceImpl;
+import com.spring.WeatherWear.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
+@RequiredArgsConstructor
 @Controller
 public class MemberController {
-    private final MemberServiceImpl memberServiceImpl;
+    private final MemberService memberService;
 
-    MemberController(MemberServiceImpl memberServiceImpl) {
-        this.memberServiceImpl = memberServiceImpl;
+    @GetMapping("/")
+    public String mainPage() {
+        return "main";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/member/login")
     public String loginPage() {
-        return "login"; // login.html 파일 이름 (templates 폴더에 위치)
+        return "login";
     }
 
-
-    @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model) {
-        Member member = memberServiceImpl.login(email, password);
+    @PostMapping("/member/login")
+    public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session) {
+        Member member = memberService.login(loginRequest);
 
         if (member == null) {
-            model.addAttribute("errorMessage", "로그인 실패: 이메일 또는 비밀번호를 확인하세요.");
-            return "login"; // 로그인 페이지로 다시 이동
+            return "login";
         }
 
-        return "redirect:/success"; // 성공 시 success 페이지로 리다이렉트
+        session.setAttribute("member", member);
+        return "success";
     }
 
-    @GetMapping("/signup")
-    public String SignupPage() {
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/member/signup")
+    public String signUpForm() {
         return "signup";
     }
 
-    @PostMapping("/signup")
-    public String signUp(@ModelAttribute SignUpRequest signUpRequest) {
-        memberServiceImpl.signUp(signUpRequest);
+    @PostMapping("/member/signup")
+    public String signup(@ModelAttribute SignUpRequest signUpRequest) {
+        System.out.println("회원가입 요청: " + signUpRequest);
+        memberService.signUp(signUpRequest);
         return "redirect:/welcome";
     }
 
-
     @GetMapping("/success")
-    public String successPage() {
-        return "success"; // 뷰 이름 또는 정적 HTML 경로
+    public String success() {
+        return "success";
     }
 
     @GetMapping("/welcome")
     public String welcome() {
-        return "welcome"; // 뷰 이름 또는 정적 HTML 경로
+        return "welcome";
     }
-
 
 }

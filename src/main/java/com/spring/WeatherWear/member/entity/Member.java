@@ -10,41 +10,37 @@ import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Getter
 @NoArgsConstructor
 @Entity
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "email", length = 50)
+    @Column(name = "email", length = 50, unique = true)
     private String email;
 
-    @NotNull
     @Column(name = "password", length = 15)
     private String password;
 
-    @NotNull
     @Column(name = "name", length = 100)
     private String name;
 
-    @Column(name = "nickName",  length = 20)
+    @Column(name = "nick_name",  length = 20)
     private String nickName;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @Column(name = "role")
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
     @Column(name = "auth_type", length = 10)
     private AuthType authType;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "social_type")
     private SocialType socialType;
 
     @Column(name = "social_id", length = 50)
