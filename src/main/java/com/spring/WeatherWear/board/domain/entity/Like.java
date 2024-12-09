@@ -1,4 +1,4 @@
 package com.spring.WeatherWear.board.domain.entity;
 
-public class Comment {
+public class Like {
 }
