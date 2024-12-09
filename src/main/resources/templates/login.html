@@ -2,9 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+    .login-container {
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .login-container h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background-color: #45a049;
+    }
+    .login-container .google-btn {
+      background-color: #4285F4;
+      margin-top: 10px;
+    }
+    .login-container .google-btn:hover {
+      background-color: #357AE8;
+    }
+    .login-container .signup {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .login-container .signup a {
+      color: #4285F4;
+      text-decoration: none;
+    }
+    .login-container .signup a:hover {
+      text-decoration: underline;
+    }
+    #login-message {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-$END$
+<div class="login-container">
+  <h1>로그인</h1>
+  <div id="login-message"></div>
+
+  <!-- 로그인 상태일 때만 로그아웃 버튼을 보여줌 -->
+  <div id="logout-form" style="display: none;">
+    <form action="/logout" method="POST">
+      <button type="submit">로그아웃</button>
+    </form>
+  </div>
+
+  <!-- 로그인 안 되어 있을 때 로그인 폼을 보여줌 -->
+  <div id="login-form">
+    <form onsubmit="handleLogin(event)">
+      <input type="text" name="username" placeholder="이메일" required>
+      <input type="password" name="password" placeholder="비밀번호" required>
+      <button type="submit">로그인</button>
+    </form>
+    <button class="google-btn" onclick="location.href='/oauth2/authorization/google'">구글 로그인</button>
+    <div class="signup">
+      <p>아직 회원이 아니신가요? <a href="/signup">회원가입</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 로그인 상태 확인 (세션 정보가 존재하는지 확인하는 방법은 서버 구현에 따라 다를 수 있음)
+  // 이 예시는 로컬 스토리지에 로그인 상태를 저장한다고 가정합니다.
+  if (localStorage.getItem('isLoggedIn') === 'true') {
+    // 로그인된 상태라면 로그인 폼을 숨기고 로그아웃 버튼을 보이도록 설정
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('logout-form').style.display = 'block';
+  } else {
+    // 로그인되지 않은 상태라면 로그인 폼을 보이도록 설정
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('logout-form').style.display = 'none';
+  }
+
+  // 로그인 처리 예시 함수 (실제로는 서버와 연동하여 처리해야 함)
+  function handleLogin(event) {
+    event.preventDefault();
+
+    // 로그인 성공 시 로컬 스토리지에 로그인 상태 저장 (예시)
+    localStorage.setItem('isLoggedIn', 'true');
+
+    // 로그인 후 페이지 새로 고침
+    window.location.reload();
+  }
+</script>
 </body>
 </html>

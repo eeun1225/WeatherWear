@@ -1,4 +1,5 @@
 package com.spring.WeatherWear.User.member.entity;
 
-public class AuthType {
+public enum AuthType {
+    SOCIAL, LOCAL;
 }
