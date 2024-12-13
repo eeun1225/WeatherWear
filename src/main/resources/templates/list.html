@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>글 목록</title>
     <style>
         table, tr, td, th {
             border: 1px solid black;
@@ -23,8 +23,9 @@
         <th>작성시간</th>
         <th>조회수</th>
     </tr>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.id}"></td>
+    <!-- 글 목록 반복 -->
+    <tr th:each="board, stat : ${boardList}">
+        <td th:text="${boardList.size() - stat.index}"></td> <!-- 번호 매기기 -->
         <td>
             <a th:text="${board.boardTitle}" th:href="@{'/' + ${board.id}}"></a>
         </td>
