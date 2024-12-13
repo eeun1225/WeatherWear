@@ -2,14 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>글 작성</title>
+    <script>
+        function validateForm() {
+            const title = document.forms["boardForm"]["boardTitle"].value;
+            const writer = document.forms["boardForm"]["boardWriter"].value;
+            const pass = document.forms["boardForm"]["boardPass"].value;
+            const contents = document.forms["boardForm"]["boardContents"].value;
+
+            if (!title || !writer || !pass || !contents) {
+                alert("모든 필수 입력값을 작성해주세요!");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
-<form action="/save" method="post" enctype="multipart/form-data">
-    제목: <input type="text" name="boardTitle"><br>
-    작성자: <input type="text" name="boardWriter"><br>
-    비밀번호: <input type="text" name="boardPass"><br>
-    내용: <textarea name="boardContents" cols="30" rows="10"></textarea>
+<form name="boardForm" action="/save" method="post" enctype="multipart/form-data">
+    <div th:if="${error}" style="color: red;" th:text="${error}"></div>
+    제목: <input type="text" name="boardTitle" required><br>
+    작성자: <input type="text" name="boardWriter" required><br>
+    비밀번호: <input type="text" name="boardPass" required><br>
+    내용: <textarea name="boardContents" cols="30" rows="10" required></textarea><br>
     파일: <input type="file" name="boardFile" multiple><br>
     <input type="submit" value="작성">
 </form>

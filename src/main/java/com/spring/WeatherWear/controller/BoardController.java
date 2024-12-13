@@ -25,7 +25,14 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save(BoardDTO boardDTO) throws IOException {
+    public String save(BoardDTO boardDTO, Model model) throws IOException {
+        if (boardDTO.getBoardTitle().isEmpty() ||
+                boardDTO.getBoardWriter().isEmpty() ||
+                boardDTO.getBoardPass().isEmpty() ||
+                boardDTO.getBoardContents().isEmpty()) {
+            model.addAttribute("error", "모든 필수 입력값을 작성해야 합니다.");
+            return "save"; // 다시 작성 화면으로 이동
+        }
         boardService.save(boardDTO);
         return "redirect:/list";
     }
