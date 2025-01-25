@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.jboss.logging:jboss-logging:3.5.1.Final'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -28,6 +29,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.hibernate.common:hibernate-commons-annotations:5.1.2.Final'
+	implementation 'com.fasterxml:classmate:1.5.1' // 추가된 부분
 }
 
 tasks.named('test') {

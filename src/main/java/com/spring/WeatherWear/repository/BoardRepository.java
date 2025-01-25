@@ -3,10 +3,15 @@ package com.spring.WeatherWear.repository;
 import com.spring.WeatherWear.domain.dto.BoardDTO;
 import com.spring.WeatherWear.domain.dto.BoardFileDTO;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,6 +26,32 @@ public class BoardRepository {
     public List<BoardDTO> findAll() {
         System.out.println("findAll");
         return sql.selectList("Board.findAll");
+    }
+
+    public List<BoardDTO> findPage(int offset, int pageSize) {
+        return sql.selectList("Board.findPage", Map.of("offset", offset, "pageSize", pageSize));
+    }
+
+    public int getTotalBoardCount() {
+        return sql.selectOne("Board.getTotalBoardCount");
+    }
+
+    public List<BoardDTO> findByTitleContaining(String keyword, int page) {
+        int offset = (page - 1) * 10;
+        // keyword가 null 또는 공백 문자열인 경우 기본 처리
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return Collections.emptyList(); // 빈 리스트 반환
+        }
+        return sql.selectList("Board.findByTitleContaining", Map.of("keyword", "%" + keyword.trim() + "%", "offset", offset));
+    }
+
+    public List<BoardDTO> findByWriterContaining(String keyword, int page) {
+        int offset = (page - 1) * 10;
+        // keyword가 null 또는 공백 문자열인 경우 기본 처리
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return Collections.emptyList(); // 빈 리스트 반환
+        }
+        return sql.selectList("Board.findByWriterContaining", Map.of("keyword", "%" + keyword.trim() + "%", "offset", offset));
     }
 
     public void updateHits(Long id) {

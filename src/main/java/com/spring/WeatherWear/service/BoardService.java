@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -52,6 +53,25 @@ public class BoardService {
             }
         }
     }
+
+    public List<BoardDTO> findPage(int page, int pageSize) {
+        int offset = (page - 1) * pageSize; // 페이지에 따라 가져올 글의 시작점 계산
+        return boardRepository.findPage(offset, pageSize);
+    }
+
+    public int getTotalBoardCount() {
+        return boardRepository.getTotalBoardCount();
+    }
+
+    public List<BoardDTO> searchBoards(String searchType, String keyword, int page) {
+        if ("title".equals(searchType)) {
+            return boardRepository.findByTitleContaining(keyword, page);
+        } else if ("writer".equals(searchType)) {
+            return boardRepository.findByWriterContaining(keyword, page);
+        }
+        return Collections.emptyList();
+    }
+
 
     // 기타 메서드는 그대로 유지
     public List<BoardFileDTO> findFile(Long id) {
