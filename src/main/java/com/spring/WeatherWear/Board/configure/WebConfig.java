@@ -1,4 +1,4 @@
-package com.spring.WeatherWear.configure;
+package com.spring.WeatherWear.Board.configure;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

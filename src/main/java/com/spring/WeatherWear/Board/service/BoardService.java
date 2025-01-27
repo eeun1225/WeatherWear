@@ -1,8 +1,8 @@
-package com.spring.WeatherWear.service;
+package com.spring.WeatherWear.Board.service;
 
-import com.spring.WeatherWear.domain.dto.BoardFileDTO;
-import com.spring.WeatherWear.repository.BoardRepository;
-import com.spring.WeatherWear.domain.dto.BoardDTO;
+import com.spring.WeatherWear.Board.domain.dto.BoardFileDTO;
+import com.spring.WeatherWear.Board.repository.BoardRepository;
+import com.spring.WeatherWear.Board.domain.dto.BoardDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

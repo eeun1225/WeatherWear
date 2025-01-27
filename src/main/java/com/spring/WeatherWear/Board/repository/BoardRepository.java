@@ -1,14 +1,11 @@
-package com.spring.WeatherWear.repository;
+package com.spring.WeatherWear.Board.repository;
 
-import com.spring.WeatherWear.domain.dto.BoardDTO;
-import com.spring.WeatherWear.domain.dto.BoardFileDTO;
+import com.spring.WeatherWear.Board.domain.dto.BoardDTO;
+import com.spring.WeatherWear.Board.domain.dto.BoardFileDTO;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Pageable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

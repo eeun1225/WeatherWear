@@ -1,4 +1,4 @@
-package com.spring.WeatherWear;
+package com.spring.WeatherWear.Board;
 
 import java.awt.Desktop;
 import java.net.URI;

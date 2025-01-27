@@ -1,4 +1,4 @@
-package com.spring.WeatherWear.domain.dto;
+package com.spring.WeatherWear.Board.domain.dto;
 
 import lombok.Getter;
 import lombok.Setter;
