@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* 밝은 하늘색 배경 */
+    margin: 20px;
+    color: #333; /* 기본 텍스트 색상 */
+    text-align: center; /* 중앙 정렬 */
+}
+
+form {
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+    background-color: white; /* 폼 배경 */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    text-align: left; /* 폼 내부는 좌측 정렬 */
+}
+
+form div[th\:if] {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical; /* 세로 크기 조정 허용 */
+}
+
+input[type="submit"] {
+    background-color: #87cefa; /* 하늘색 배경 */
+    color: white; /* 흰색 텍스트 */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #4682b4; /* 진한 하늘색 */
+}
