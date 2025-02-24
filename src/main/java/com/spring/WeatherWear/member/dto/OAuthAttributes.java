@@ -40,11 +40,11 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public Member toEntity() {
+    public Member toEntity(String nickName) {
         return Member.builder()
                 .email(email)
                 .name(name)
-                .nickName(name)
+                .nickName(nickName)
                 .role(Role.USER)
                 .authType(AuthType.SOCIAL)
                 .socialType(socialType)

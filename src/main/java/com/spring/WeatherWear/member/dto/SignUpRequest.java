@@ -11,14 +11,13 @@ public class SignUpRequest {
     private String email;
     private String password;
     private String name;
-    private String nick_name;
 
-    public Member toEntity() {
+    public Member toEntity(String nickName) {
         return Member.builder()
                 .email(email)
                 .password(password)
                 .name(name)
-                .nickName(nick_name)
+                .nickName(nickName)
                 .role(Role.USER)
                 .authType(AuthType.LOCAL)
                 .socialType(null)

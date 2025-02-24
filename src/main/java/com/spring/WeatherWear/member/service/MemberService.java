@@ -7,15 +7,22 @@ import com.spring.WeatherWear.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final GenerateNickName generateNickName;
 
     public void signUp(SignUpRequest signUpRequest) {
-        Member member = signUpRequest.toEntity();
+        if (isDuplicateEmail(signUpRequest.getEmail())) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+        Member member = signUpRequest.toEntity(generateNickName.generateName());
         memberRepository.save(member);
     }
 
@@ -27,6 +34,9 @@ public class MemberService {
         memberRepository.deleteById(id);
     }
 
+    public boolean isDuplicateEmail(String email) {
+        return memberRepository.findByEmail(email).isPresent();
+    }
 
     public Member login(LoginRequest loginRequest) {
         Optional<Member> byMemberEmail = memberRepository.findByEmail(loginRequest.getEmail());
@@ -40,5 +50,4 @@ public class MemberService {
 
         return null;
     }
-
 }
