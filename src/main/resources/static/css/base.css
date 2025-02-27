@@ -1,0 +1,15 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* 밝은 하늘색 */
+    color: #333; /* 기본 텍스트 색상 */
+    margin: 20px;
+}
+
+a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: #4682b4; /* 기본 링크 색상 */
+}
+
+a:hover {
+    text-decoration: underline; /* 링크 호버 시 밑줄 추가 */
+}
