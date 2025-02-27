@@ -1,66 +1,96 @@
+/* 배경 스타일 */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* 밝은 하늘색 */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f9f9f9;
 }
+
+/* 로그인 컨테이너 */
 .login-container {
-    width: 300px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 350px;
 }
-.login-container h1 {
+
+/* 제목 스타일 */
+h1 {
+    color: #4682b4; /* 진한 하늘색 */
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
 }
-.login-container input[type="email"],
-.login-container input[type="password"] {
+
+/* 입력 필드 스타일 */
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    margin: 10px 0;
+    border: 1px solid #87cefa; /* 연한 하늘색 */
+    border-radius: 5px;
+    font-size: 16px;
 }
-.login-container button {
+
+/* 일반 버튼 스타일 */
+button {
     width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 4px;
+    padding: 12px;
+    background-color: #4682b4; /* 진한 하늘색 */
     color: white;
+    border: none;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-}
-.login-container button:hover {
-    background-color: #45a049;
-}
-.login-container .google-btn {
-    background-color: #4285F4;
     margin-top: 10px;
 }
-.login-container .google-btn:hover {
-    background-color: #357AE8;
+
+button:hover {
+    background-color: #36648b; /* hover 효과 */
 }
-.login-container .signup {
-    margin-top: 20px;
-    font-size: 14px;
+
+/* 구글 로그인 버튼 */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #444;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 10px;
 }
-.login-container .signup a {
-    color: #4285F4;
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.google-btn:hover {
+    background-color: #f1f1f1;
+    border-color: #ccc;
+}
+
+/* 회원가입 링크 */
+p {
+    margin-top: 15px;
+}
+
+a {
+    color: #4682b4;
     text-decoration: none;
+    font-weight: bold;
 }
-.login-container .signup a:hover {
+
+a:hover {
     text-decoration: underline;
-}
-#login-message {
-    font-size: 14px;
-    margin-bottom: 10px;
 }
