@@ -1,18 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>WeatherWear</title>
     <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-<div id="main-content">
-    <h1>홈 화면</h1>
-    <div class="button-container">
-        <button class="button" onclick="location.href='/member/login'">로그인</button>
-        <button class="button" onclick="location.href='/member/signup'">회원가입</button>
+
+<!-- 상단 메뉴 -->
+<div class="header">
+    <!-- 햄버거 메뉴 아이콘 -->
+    <div class="menu-icon" id="menuIcon">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="login" id="loginStatus" th:text="${isLoggedIn ? '로그아웃' : '로그인'}"></div>
+</div>
+
+<!-- 배경 오버레이 -->
+<div class="overlay" id="overlay"></div>
+
+<!-- 왼쪽 메뉴 창 -->
+<div class="side-menu" id="mySidenav">
+    <button class="closebtn" onclick="closeNav()">&times;</button>
+    <div class="menu-list">
+        <button th:onclick="|location.href='/main'|">Home</button>
+        <button th:onclick="|location.href='/weather'|">Weather</button>
+        <button th:onclick="|location.href='/outfit'|">Coordination</button>
+        <button th:onclick="|location.href='/board'|">Board</button>
     </div>
 </div>
+
+<!-- 중앙 컨텐츠 -->
+<div class="container">
+    <h1>WeatherWear</h1>
+    <div class="boxes">
+        <div class="box" id="weatherBox">
+            <a href="/weather">
+                <img id="weatherIcon" th:src="${weatherIconUrl}" alt="날씨 아이콘">
+            </a>
+        </div>
+        <div class="box" id="clothingBox">
+            <a href="/outfit">
+                <img src="https://via.placeholder.com/100" alt="옷 아이콘">
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 햄버거 메뉴 열기/닫기
+    function toggleMenu() {
+        const sideMenu = document.getElementById("mySidenav");
+        const overlay = document.getElementById("overlay");
+
+        if (sideMenu.classList.contains("active")) {
+            closeNav();
+        } else {
+            sideMenu.classList.add("active");
+            overlay.style.display = "block"; // 배경 오버레이 표시
+        }
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").classList.remove("active");
+        document.getElementById("overlay").style.display = "none"; // 배경 오버레이 숨김
+    }
+
+    // 햄버거 아이콘 클릭 이벤트 추가
+    document.getElementById("menuIcon").addEventListener("click", function (event) {
+        event.stopPropagation(); // 클릭 이벤트 버블링 방지
+        toggleMenu();
+    });
+
+    // 메뉴 외부 클릭 시 닫기
+    document.getElementById("overlay").addEventListener("click", closeNav);
+</script>
 </body>
 </html>
