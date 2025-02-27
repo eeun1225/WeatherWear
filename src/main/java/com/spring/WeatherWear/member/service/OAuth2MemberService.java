@@ -19,7 +19,6 @@ import java.util.Map;
 @Service
 public class OAuth2MemberService extends DefaultOAuth2UserService {
     private final MemberRepository memberRepository;
-    private final GenerateNickName generateNickName;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -38,6 +37,7 @@ public class OAuth2MemberService extends DefaultOAuth2UserService {
 
     private Member OAuthSignUp(OAuthAttributes attributes) {
         Member member = memberRepository.findByEmail(attributes.getEmail()).orElse(null);
+        GenerateNickName generateNickName = new GenerateNickName();
 
         if (member == null) {
             member = attributes.toEntity(generateNickName.generateName());
