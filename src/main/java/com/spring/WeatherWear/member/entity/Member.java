@@ -11,6 +11,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -28,7 +32,7 @@ public class Member {
     @Column(name = "name", length = 100)
     private String name;
 
-    @Column(name = "nick_name",  length = 20)
+    @Column(name = "nick_name",  length = 20, unique = true)
     private String nickName;
 
     @Enumerated(EnumType.STRING)
@@ -45,7 +49,6 @@ public class Member {
 
     @Column(name = "social_id", length = 50)
     private String social_id;
-
 
     @Builder
     public Member(String email, String password, String name, String nickName, Role role, AuthType authType, SocialType socialType, String social_id) {
