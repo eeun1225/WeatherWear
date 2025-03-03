@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>기온별 옷차림</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<!-- 오른쪽 하단 아이콘 -->
+<div class="weather-icon" onclick="openPopup()">
+    <img src="/images/weather_icon.png" alt="기온별 옷차림">
+</div>
+
+<!-- 팝업창 -->
+<div id="popup" class="popup-overlay">
+    <div class="popup-content">
+        <!-- 닫기 버튼 -->
+        <span class="close-btn" onclick="closePopup()">❌</span>
+
+        <!-- 제목 -->
+        <h2>기온별 옷차림</h2>
+
+        <!-- 온도계 + 표 -->
+        <div class="popup-layout">
+            <!-- 왼쪽 온도계 -->
+            <div class="thermometer">
+                <div class="temperature-bar"></div>
+            </div>
+
+            <!-- 오른쪽 표 -->
+            <div class="temperature-table">
+                <div class="temp-row">
+                    <span class="temp-range">28°C 이상</span>
+                    <span class="clothing">민소매, 반팔, 반바지, 린넨 의류</span>
+                </div>
+                <div class="temp-row">
+                    <span class="temp-range">27~23°C</span>
+                    <span class="clothing">반팔, 얇은 셔츠, 반바지, 면바지</span>
+                </div>
+                <div class="temp-row">
+                    <span class="temp-range">22~20°C</span>
+                    <span class="clothing">얇은 가디건, 블라우스, 긴팔 티, 면바지</span>
+                </div>
+                <div class="temp-row">
+                    <span class="temp-range">19~17°C</span>
+                    <span class="clothing">얇은 니트, 후드티, 맨투맨, 가디건</span>
+                </div>
+                <div class="temp-row">
+                    <span class="temp-range">16~12°C</span>
+                    <span class="clothing">자켓, 가디건, 청바지, 간절기 외투</span>
+                </div>
+                <div class="temp-row">
+                    <span class="temp-range">11~9°C</span>
+                    <span class="clothing">야상, 자켓, 니트, 면바지</span>
+                </div>
+                <div class="temp-row">
+                    <span class="temp-range">8~5°C</span>
+                    <span class="clothing">코트, 가죽자켓, 니트, 두꺼운 바지</span>
+                </div>
+                <div class="temp-row">
+                    <span class="temp-range">4°C 이하</span>
+                    <span class="clothing">패딩, 두꺼운 코트, 히트텍, 기모 제품</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="/js/script.js"></script>
+</body>
+</html>
