@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -19,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http, MemberRepository memberRepository) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/member/login","/member/signup", "/success", "/member/logout", "/welcome").permitAll() // 로그인 전에는 홈, 로그인 페이지만 허용
+                        .requestMatchers("/","/css/**", "/home", "/weather", "/member/login","/member/signup", "/success", "/member/logout", "/welcome").permitAll() // 로그인 전에는 홈, 로그인 페이지만 허용
                         .anyRequest().authenticated() // 나머지는 인증 필요
                 )
                 .logout((logout) -> logout
@@ -34,6 +36,11 @@ public class SecurityConfig {
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

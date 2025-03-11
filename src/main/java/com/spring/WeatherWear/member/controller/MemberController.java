@@ -6,6 +6,7 @@ import com.spring.WeatherWear.member.entity.Member;
 import com.spring.WeatherWear.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MemberController {
     private final MemberService memberService;
-
-    @GetMapping("/")
-    public String mainPage() {
-        return "main";
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/member/login")
     public String loginPage() {
@@ -51,7 +48,8 @@ public class MemberController {
 
     @PostMapping("/member/signup")
     public String signup(@ModelAttribute SignUpRequest signUpRequest) {
-        System.out.println("회원가입 요청: " + signUpRequest);
+        String encodePassword = passwordEncoder.encode(signUpRequest.getPassword());
+        signUpRequest.setPassword(encodePassword);
         memberService.signUp(signUpRequest);
         return "redirect:/welcome";
     }

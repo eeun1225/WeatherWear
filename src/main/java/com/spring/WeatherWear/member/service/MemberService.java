@@ -5,18 +5,16 @@ import com.spring.WeatherWear.member.dto.SignUpRequest;
 import com.spring.WeatherWear.member.entity.Member;
 import com.spring.WeatherWear.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
     private final GenerateNickName generateNickName;
+    private final PasswordEncoder passwordEncoder;
 
     public void signUp(SignUpRequest signUpRequest) {
         if (isDuplicateEmail(signUpRequest.getEmail())) {
@@ -43,7 +41,7 @@ public class MemberService {
 
         if (byMemberEmail.isPresent()) {
             Member member = byMemberEmail.get();
-            if (member.getPassword().equals(loginRequest.getPassword())) {
+            if (passwordEncoder.matches(loginRequest.getPassword(), member.getPassword())) {
                 return member;
             }
         }
