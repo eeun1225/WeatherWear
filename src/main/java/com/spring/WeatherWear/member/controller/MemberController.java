@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,15 +24,16 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session) {
-        Member member = memberService.login(loginRequest);
-
-        if (member == null) {
+    public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session, Model model) {
+        try {
+            Member member = memberService.login(loginRequest);
+            session.setAttribute("member", member);
+            session.setMaxInactiveInterval(30 * 60);
+            return "redirect:/home";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
             return "login";
         }
-
-        session.setAttribute("member", member);
-        return "success";
     }
 
     @GetMapping("/member/logout")
