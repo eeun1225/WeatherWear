@@ -37,15 +37,9 @@ public class MemberService {
     }
 
     public Member login(LoginRequest loginRequest) {
-        Optional<Member> byMemberEmail = memberRepository.findByEmail(loginRequest.getEmail());
-
-        if (byMemberEmail.isPresent()) {
-            Member member = byMemberEmail.get();
-            if (passwordEncoder.matches(loginRequest.getPassword(), member.getPassword())) {
-                return member;
-            }
-        }
-
-        return null;
+        return memberRepository.findByEmail(loginRequest.getEmail())
+                .filter(member -> passwordEncoder.matches(loginRequest.getPassword(), member.getPassword()))
+                .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 잘못되었습니다."));
     }
+
 }
