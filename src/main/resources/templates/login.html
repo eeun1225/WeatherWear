@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
 </head>
 <body>
-<div class="login-container">
-    <h1>로그인</h1>
-    <form action="/member/login" method="post">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-        <input type="email" name="email" placeholder="이메일" required>
-        <input type="password" name="password" placeholder="비밀번호" required>
-        <button type="submit">로그인</button>
-    </form>
-    <button class="google-btn" onclick="location.href='/oauth2/authorization/google'">
-        <img src="/static/images/google-logo.png" alt="Google 로고"> Google
-    </button>
-    <div>
-        <p>아직 회원이 아니신가요? <a href="/member/signup">회원가입</a></p>
+    <div class="login-container">
+        <h1>로그인</h1>
+        <form action="/member/login" method="post">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+            <input type="email" name="email" placeholder="이메일" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
+            <button type="submit">로그인</button>
+        </form>
+        <button class="google-btn" onclick="location.href='/oauth2/authorization/google'">
+            <img src="/images/google-logo.png" alt="Google 로고"> Google
+        </button>
+        <div>
+            <p>아직 회원이 아니신가요? <a href="/member/signup">회원가입</a></p>
+        </div>
     </div>
-</div>
 </body>
 </html>
