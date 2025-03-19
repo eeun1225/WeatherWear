@@ -61,7 +61,7 @@ function updateWeatherUI(data) {
     // 메인 화면 UI 업데이트
     document.getElementById('weatherBox').innerHTML = `
         <div class="weather-icon"><i class="material-icons">${icon}</i></div>
-        <div class="weather-info">${description}</div>
+        <div class="weather-info"><strong>${description}</strong></div>
         <div class="weather-info"><strong>현재 기온:</strong> ${data.temperature}℃</div>
     `;
 
@@ -69,7 +69,7 @@ function updateWeatherUI(data) {
     document.getElementById('detailWeather').innerHTML = `
         <div class="weather-info"><strong>현재 위치:</strong> ${data.areaRequest.step1} > ${data.areaRequest.step2} > ${data.areaRequest.step3}</div>
         <div class="weather-icon"><i class="material-icons">${icon}</i></div>
-        <div class="weather-info"><strong>${description}</div>
+        <div class="weather-info"><strong>${description}</strong></div>
         <div class="weather-info"><strong>현재 기온:</strong> ${data.temperature}℃</div>
         <div class="weather-info"><strong>풍속:</strong> ${data.windSpeed}m/s</div>
         <div class="weather-info"><strong>강수량:</strong> ${data.precipitation}mm</div>

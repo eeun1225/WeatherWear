@@ -7,6 +7,8 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>WeatherWear</title>
     <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
     <!-- 상단 메뉴 -->
@@ -29,9 +31,9 @@
     <div class="side-menu" id="mySidenav">
         <button class="closebtn" id="closeBtn">&times;</button>
         <div class="menu-list">
-            <button onclick="location.href='/home'">Home</button>
+            <button onclick="location.href='/'">Home</button>
             <button onclick="location.href='/weather'">Weather</button>
-            <button onclick="location.href='/outfit'">Coordination</button>
+            <button onclick="location.href='/outfit'">Outfit</button>
             <button onclick="location.href='/board'">Board</button>
         </div>
     </div>
@@ -41,12 +43,13 @@
         <h1>WeatherWear</h1>
 
         <div class="boxes">
-            <div class="box" id="weatherBox"> </div>
-            <div class="box" id="clothingBox">
-                <a href="/outfit">
-                    <img src="https://via.placeholder.com/100" alt="옷 아이콘">
-                </a>
+            <div class="box" id="weatherBox" th:onclick="|location.href='@{/weather}'|"> </div>
+
+            <div class="box" id="clothingBox" th:onclick="|location.href='@{/outfit}'|">
+                <div class="outfit-suggestion">오늘 날씨에 맞는 코디는?</div>
+                <span class="material-icons">checkroom</span>
             </div>
+
         </div>
     </div>
     <script type="module" src="/js/weather.js"></script>
@@ -77,10 +80,6 @@
 
         // X 버튼 클릭 시 닫기
         document.getElementById("closeBtn").addEventListener("click", closeNav);
-
-        document.getElementById("weatherBox").addEventListener("click", function() {
-            window.location.href = "/weather";
-        });
 
     </script>
 </body>
