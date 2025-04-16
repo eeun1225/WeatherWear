@@ -1,8 +1,10 @@
 package com.spring.WeatherWear.outfit.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Clothing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +16,7 @@ public class Clothing {
     @Enumerated(EnumType.STRING)
     private WeatherType weatherType;
 
+    private String productName;
     private int MaxTemp;
     private int MinTemp;
-
-    private String productLink;
-    private String imagePath;
 }
