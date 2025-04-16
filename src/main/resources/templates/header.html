@@ -1,0 +1,28 @@
+<div th:fragment="headerFragment">
+    <!-- 상단 메뉴 -->
+    <div class="header">
+        <!-- 햄버거 메뉴 아이콘 -->
+        <div class="menu-icon" id="menuIcon">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="login-text">
+            <a href="/login">로그인</a>
+        </div>
+    </div>
+
+    <!-- 배경 오버레이 -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- 왼쪽 메뉴 창 -->
+    <div class="side-menu" id="mySidenav">
+        <button class="closebtn" id="closeBtn">&times;</button>
+        <div class="menu-list">
+            <button onclick="location.href='/'">Home</button>
+            <button onclick="location.href='/weather'">Weather</button>
+            <button onclick="location.href='/outfit'">Outfit</button>
+            <button onclick="location.href='/board'">Board</button>
+        </div>
+    </div>
+</div>
