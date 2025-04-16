@@ -7,12 +7,7 @@ import com.spring.WeatherWear.weather.repository.WeatherAreaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +18,16 @@ import java.util.Optional;
 public class WeatherService {
     private final WeatherAreaRepository weatherAreaRepository;
 
-    @Value("${service.api.key}")
+    @Value("${weather.api.key}")
     private String serviceKey;
 
-    @Value("${base.api.url}")
+    @Value("${weather.base.api.url}")
     private String baseUrl;
 
-    @Value("${api.url}")
+    @Value("${weather.api.url}")
     private String apiUrl;
+
+    private WeatherData weatherData;
 
     public WeatherApiResponse getWeather(AreaRequest areaRequest){
         WebClient webClient = WebClient.builder().baseUrl(baseUrl).build();
@@ -83,20 +80,46 @@ public class WeatherService {
         }
 
         double temperature = Double.parseDouble(weatherData.getOrDefault("T1H", "0"));
-        double windSpeed = Double.parseDouble(weatherData.getOrDefault("WSD", "0"));
         double precipitation = Double.parseDouble(weatherData.getOrDefault("RN1", "0"));
-        double humidityValue = Double.parseDouble(weatherData.getOrDefault("REH", "0"));
-        int humidity = (int) Math.round(humidityValue);
-
-        return new WeatherData(temperature, windSpeed, precipitation, humidity, areaRequest);
+        double windSpeed = Double.parseDouble(weatherData.getOrDefault("WSD", "0"));
+        int humidity = (int) Math.round(Double.parseDouble(weatherData.getOrDefault("REH", "0")));
+        int pty = (int) Double.parseDouble(weatherData.getOrDefault("PTY", "0"));
+        String description = getDescription(pty, humidity, temperature);
+        String icon = getIcon(description);
+        return new WeatherData(temperature, precipitation, windSpeed, humidity, pty, areaRequest, description, icon);
     }
-
 
     public WeatherData getWeatherForLocation(AreaRequest areaRequest) {
         areaRequest = getLocation(areaRequest);
         WeatherApiResponse response = getWeather(areaRequest);
         return extractWeatherData(response, areaRequest);
     }
+
+    private String getDescription(int pty, int humidity, double temperature) {
+        if (pty == 1 || pty == 5) return "비";
+        if (pty == 3 || pty == 7) return "눈";
+        if (pty == 6) return "진눈깨비";
+        if (pty == 2) {
+            if (temperature <= 0) return "눈";
+            if (temperature >= 3) return "비";
+            return "진눈깨비";
+        }
+        if (humidity >= 80) return "흐림";
+        if (humidity >= 50) return "구름 많음";
+        return "맑음";
+    }
+
+    private String getIcon(String description) {
+        switch (description) {
+            case "비": return "umbrella";
+            case "눈": return "ac_unit";
+            case "진눈깨비": return "grain";
+            case "흐림": return "cloud_queue";
+            case "구름 많음": return "cloud";
+            default: return "wb_sunny";
+        }
+    }
+
 
 }
 

@@ -10,8 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface WeatherAreaRepository extends JpaRepository<WeatherArea, String> {
-    @Query(value = "SELECT * " +
-            "FROM weather_area " +
+    @Query(value = "SELECT * FROM weather_area " +
             "WHERE ABS(CAST(longitude_ms AS DOUBLE) - :longitudeMs) < 1.0 " +
             "  AND ABS(CAST(latitude_ms AS DOUBLE) - :latitudeMs) < 1.0 " +
             "ORDER BY (ABS(CAST(longitude_ms AS DOUBLE) - :longitudeMs) " +
