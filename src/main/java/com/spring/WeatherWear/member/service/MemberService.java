@@ -5,18 +5,16 @@ import com.spring.WeatherWear.member.dto.SignUpRequest;
 import com.spring.WeatherWear.member.entity.Member;
 import com.spring.WeatherWear.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
     private final GenerateNickName generateNickName;
+    private final PasswordEncoder passwordEncoder;
 
     public void signUp(SignUpRequest signUpRequest) {
         if (isDuplicateEmail(signUpRequest.getEmail())) {
@@ -39,15 +37,9 @@ public class MemberService {
     }
 
     public Member login(LoginRequest loginRequest) {
-        Optional<Member> byMemberEmail = memberRepository.findByEmail(loginRequest.getEmail());
-
-        if (byMemberEmail.isPresent()) {
-            Member member = byMemberEmail.get();
-            if (member.getPassword().equals(loginRequest.getPassword())) {
-                return member;
-            }
-        }
-
-        return null;
+        return memberRepository.findByEmail(loginRequest.getEmail())
+                .filter(member -> passwordEncoder.matches(loginRequest.getPassword(), member.getPassword()))
+                .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 잘못되었습니다."));
     }
+
 }

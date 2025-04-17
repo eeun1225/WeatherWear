@@ -30,27 +30,27 @@ public class WeatherArea {
     @Column(name = "gridY", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '격자Y'")
     private String gridY;
 
-    @Column(name = "longitudeHour", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(시)'")
+    @Column(name = "longitude_hour", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(시)'")
     private String longitudeHour;
 
-    @Column(name = "longitudeMin", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(분)'")
+    @Column(name = "longitude_min", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(분)'")
     private String longitudeMin;
 
-    @Column(name = "longitudeSec", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(초)'")
+    @Column(name = "longitude_sec", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(초)'")
     private String longitudeSec;
 
-    @Column(name = "latitudeHour", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(시)'")
+    @Column(name = "latitude_hour", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(시)'")
     private String latitudeHour;
 
-    @Column(name = "latitudeMin", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(분)'")
+    @Column(name = "latitude_min", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(분)'")
     private String latitudeMin;
 
-    @Column(name = "latitudeSec", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(초)'")
+    @Column(name = "latitude_sec", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(초)'")
     private String latitudeSec;
 
-    @Column(name = "longitudeMs", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(초/100)'")
+    @Column(name = "longitude_ms", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '경도(초/100)'")
     private String longitudeMs;
 
-    @Column(name = "latitudeMs", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(초/100)'")
+    @Column(name = "latitude_ms", nullable = false, length = 50, columnDefinition = "VARCHAR(50) COMMENT '위도(초/100)'")
     private String latitudeMs;
 }

@@ -6,6 +6,7 @@ import com.spring.WeatherWear.member.entity.Role;
 import lombok.*;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class SignUpRequest {
     private String email;

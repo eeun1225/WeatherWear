@@ -5,166 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/weather.css}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>현재 위치 날씨</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f4f8;
-            text-align: center;
-            padding: 30px;
-            background-size: cover;
-            background-position: center;
-            transition: background 1s ease;
-        }
-
-        h1 {
-            font-size: 36px;
-            color: #fff;
-            margin-bottom: 30px;
-        }
-
-        .weather-container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .weather-container h2 {
-            font-size: 28px;
-            color: #555;
-        }
-
-        .weather-info {
-            font-size: 20px;
-            color: #333;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        .weather-info strong {
-            color: #007BFF;
-        }
-
-        .weather-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-
-        .loading {
-            font-size: 18px;
-            color: #888;
-        }
-
-        .error-message {
-            font-size: 18px;
-            color: #ff3333;
-        }
-
-        /* 날씨 별 배경 이미지 */
-        .sunny {
-            background-image: url('https://example.com/sunny.jpg');
-        }
-        .rainy {
-            background-image: url('https://example.com/rainy.jpg');
-        }
-        .cloudy {
-            background-image: url('https://example.com/cloudy.jpg');
-        }
-    </style>
 </head>
 <body>
-<h1>현재 위치의 날씨</h1>
-<div class="weather-container">
-    <div id="weather" class="loading">
-        <p>날씨 정보를 가져오는 중...</p>
+    <div th:replace="~{header :: headerFragment}"></div>
+
+    <div class="main-container">
+        <div id="detailWeather" class="weather-wrapper"></div>
     </div>
-</div>
 
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
-    // 페이지 로드 시 자동으로 위치 정보 가져오기
-    window.onload = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    // 서버로 POST 요청
-                    fetch('/weather', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            [csrfHeader]: csrfToken // CSRF 토큰 추가
-                        },
-                        body: JSON.stringify({ latitude, longitude })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data) {
-                                // 날씨 상태에 따라 배경 변경
-                                let weatherClass = '';
-                                let weatherIcon = '';
-
-                                if (data.temperature > 30) {
-                                    weatherClass = 'sunny';
-                                    weatherIcon = '🌞';  // 맑은 날 아이콘
-                                } else if (data.precipitation > 0) {
-                                    weatherClass = 'rainy';
-                                    weatherIcon = '🌧️';  // 비 오는 날 아이콘
-                                } else {
-                                    weatherClass = 'cloudy';
-                                    weatherIcon = '☁️';  // 구름 낀 날 아이콘
-                                }
-
-                                // 날씨 및 위치 정보를 화면에 표시
-                                document.body.className = weatherClass;
-                                document.getElementById('weather').innerHTML = `
-                                    <div class="weather-icon">${weatherIcon}</div>
-                                    <div class="weather-info">
-                                        <strong>현재 위치:</strong> ${data.areaRequest.step1} > ${data.areaRequest.step2} > ${data.areaRequest.step3}
-                                    </div>
-                                    <div class="weather-info">
-                                        <strong>현재 기온:</strong> ${data.temperature}℃
-                                    </div>
-                                    <div class="weather-info">
-                                        <strong>풍속:</strong> ${data.windSpeed}m/s
-                                    </div>
-                                    <div class="weather-info">
-                                        <strong>강수량:</strong> ${data.precipitation}mm
-                                    </div>
-                                    <div class="weather-info">
-                                        <strong>습도:</strong> ${data.humidity}%
-                                    </div>
-                                `;
-                            } else {
-                                document.getElementById('weather').innerHTML = '<p class="error-message">날씨 정보를 가져오는 데 실패했습니다.</p>';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            document.getElementById('weather').innerHTML = '<p class="error-message">날씨 정보를 가져오는 데 오류가 발생했습니다.</p>';
-                        });
-                },
-                error => {
-                    console.error(error);
-                    document.getElementById('weather').innerHTML = '<p class="error-message">위치 정보를 가져오는 데 실패했습니다.</p>';
-                }
-            );
-        } else {
-            document.getElementById('weather').innerHTML = '<p class="error-message">위치 정보를 지원하지 않는 브라우저입니다.</p>';
-        }
-    };
-    /*]]>*/
-</script>
+    <script type="module" src="/js/weather.js"></script>
+    <script src="/js/menu.js"></script>
 </body>
 </html>
