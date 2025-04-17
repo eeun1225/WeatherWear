@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* 밝은 하늘색 배경 */
+    margin: 20px;
+    color: #333; /* 기본 텍스트 색상 */
+}
+
+a {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    text-decoration: none; /* 밑줄 제거 */
+    background-color: #87cefa; /* 하늘색 배경 */
+    color: white; /* 텍스트 흰색 */
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #4682b4; /* 진한 하늘색 */
+}
+
+.write-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none; /* 밑줄 제거 */
+    background-color: #87cefa; /* 하늘색 배경 */
+    color: white; /* 텍스트 흰색 */
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.write-button:hover {
+    background-color: #4682b4; /* 진한 하늘색 */
+}
+
+table {
+    width: 80%;
+    margin: 20px auto; /* 중앙 정렬 */
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: white; /* 테이블 배경 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    border: 1px solid #ddd; /* 테두리 */
+}
+
+thead th {
+    background-color: #87cefa; /* 연한 하늘색 */
+    color: white; /* 텍스트 흰색 */
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9; /* 행 강조 */
+}
+
+tbody td {
+    font-size: 14px;
+    padding: 12px 8px;
+    text-align: center;
+    color: #333;
+}
+
+td a {
+    color: #4682b4; /* 진한 하늘색 링크 */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+.pagination {
+    margin-top: 20px; /* 게시글 목록과 간격 */
+    text-align: center; /* 가운데 정렬 */
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-container select,
+.search-container input,
+.search-container button {
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-container button {
+    background-color: #87cefa;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #4682b4;
+}

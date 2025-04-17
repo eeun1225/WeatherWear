@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+    <!-- sql문이 작성되는 공간  -->
+    <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+        insert into board_table(boardTitle, boardWriter, boardPass, boardContents, fileAttached)
+        values (#{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents}, #{fileAttached})
+    </insert>
+
+    <select id="findAll" resultType="board">
+        select id, boardTitle, boardWriter, boardHits, date_format(createdAt, '%Y-%m-%d') as createdAt
+        from board_table
+        order by id desc
+    </select>
+
+    <update id="updateHits" parameterType="Long">
+        update board_table
+        set boardHits = boardHits + 1
+        where id = #{id}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="board">
+        select id,
+               boardTitle,
+               boardWriter,
+               boardPass,
+               boardContents,
+               boardHits,
+               fileAttached,
+               date_format(createdAt, '%Y-%m-%d') as createdAt
+        from board_table
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="board">
+        update board_table
+        set boardTitle=#{boardTitle},
+            boardContents=#{boardContents}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete
+        from board_table
+        where id = #{id}
+    </delete>
+
+    <insert id="saveFile" parameterType="boardFile">
+        insert into board_file_table(originalFileName, storedFileName, boardId)
+        values (#{originalFileName}, #{storedFileName}, #{boardId})
+    </insert>
+
+    <select id="findFile" parameterType="Long" resultType="boardFile">
+        select *
+        from board_file_table
+        where boardId = #{id}
+    </select>
+
+    <!-- 페이징 처리 -->
+    <select id="findPage" resultType="board">
+        SELECT id,
+               boardTitle,
+               boardWriter,
+               boardHits,
+               DATE_FORMAT(createdAt, '%Y-%m-%d') AS createdAt
+        FROM board_table
+        ORDER BY id DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 전체 게시글 개수 조회 -->
+    <select id="getTotalBoardCount" resultType="int">
+        SELECT COUNT(*)
+        FROM board_table
+    </select>
+
+    <!-- 제목으로 검색 -->
+    <select id="findByTitleContaining" parameterType="map" resultType="BoardDTO">
+        SELECT *
+        FROM board_table
+        WHERE boardTitle LIKE #{keyword}
+        ORDER BY createdAt DESC
+        LIMIT 10 OFFSET #{offset}
+    </select>
+
+    <!-- 작성자로 검색 -->
+    <select id="findByWriterContaining" parameterType="map" resultType="BoardDTO">
+        SELECT *
+        FROM board_table
+        WHERE boardWriter LIKE #{keyword}
+        ORDER BY createdAt DESC
+        LIMIT 10 OFFSET #{offset}
+    </select>
+</mapper>
